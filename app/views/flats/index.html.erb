@@ -1,0 +1,56 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="/">Simple Airbnb</a>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <div class="ml-auto flex">
+      <form class="form-inline my-2 my-lg-0">
+        <input class="form-control mr-sm-2" name="query" type="search" placeholder="Search" aria-label="Search" value="">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+      </form>
+      <a class="btn btn-outline-primary my-2 my-sm-0 ml-2" href="/flats/new">Add Flat</a>
+    </div>
+  </div>
+</nav>
+
+<div class="container mt-3">
+  <div class="row">
+    <div class="col-12">
+      <h1>All our Flats (<%= @flats.count %>)</h1>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+      <p>We found <%= @flats.count %> flats on our website.</p>
+    </div>
+  </div>
+
+  <div class="row">
+    <% @flats.each do |flat| %>
+      <div class="col-4">
+        <div class="flat-card">
+          <div class="flat-card-image" style="background-image: url('https://elphoto.s3.eu-central-1.amazonaws.com/public/card/dyM6gS69WnOV4hYHBwJUCHYXNOJ0BcTXnW4XgZgb.jpeg')"></div>
+          <div class="flat-card-content">
+            <div class="flat-card-title">
+              <h4><%= flat.name %></h4>
+            </div>
+            <p><%= flat.address %></p>
+            <div class="flex">
+              <div class="flex">
+                <i class="material-icons mr-2">people</i><span><%= flat.number_of_guests %></span>
+              </div>
+              <div class="flex ml-3">
+                <i class="material-icons mr-2">euro_symbol</i> <%= flat.price_per_night %>
+              </div>
+            </div>
+          </div>
+          <div class="flat-card-actions">
+            <%= link_to 'More info', flat, class: "btn btn-outline-primary" %>
+            <%= link_to 'Edit', edit_flat_path(flat), class: "btn btn-outline-warning" %>
+            <%= link_to 'Remove', flat, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-outline-danger" %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
